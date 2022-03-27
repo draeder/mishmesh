@@ -1,0 +1,28 @@
+{
+  "name": "mishmesh",
+  "version": "1.0.0",
+  "description": "Connect peers together regardless of underlying decentralization technology",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/draeder/mishmesh.git"
+  },
+  "keywords": [
+    "p2p",
+    "decentralization"
+  ],
+  "author": "Daniel Raeder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/draeder/mishmesh/issues"
+  },
+  "homepage": "https://github.com/draeder/mishmesh#readme",
+  "dependencies": {
+    "bugout": "^0.0.12",
+    "node-pre-gyp": "^0.17.0",
+    "wrtc": "^0.4.7"
+  }
+}

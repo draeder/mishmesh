@@ -1,2 +1,2 @@
 # Mishmesh
-Connect peers together regardless of underlying decentralization technology
+Transmit messages between peers regardless of underlying decentralization technology they are connected with
