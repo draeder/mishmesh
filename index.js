@@ -1,18 +1,19 @@
 const EventEmitter = require('events').EventEmitter
-let transports = {}
-const Mishmash = function(params){
-  const mishmash = this
+let networks = {}
+const Mishmesh = function(params){
+  const mishmesh = this
   const events = new EventEmitter()
+  mishmesh.emit = events.emit.bind(events)
+  mishmesh.on = events.on.bind(events)
+  mishmesh.once = events.once.bind(events)
+  mishmesh.off = events.off.bind(events)
 
-  if(!params) throw new Error('Cannot start with empy parameters')
-  mishmash.params = params ? params : {}
-
-  for(let transportBinding in params.transportBindings){
-    console.log(transportBinding)
-    mishmash[transportBinding] = params.transportBindings[transportBinding].bind(params.transport)
+  mishmesh.adapters = []
+  
+  mishmesh.adapter = params => {
+    mishmesh.adapters[params.type] = params
+    networks[params.type] = mishmesh.adapters[params.type].transportBindings
+    return mishmesh.adapters[params.type].transportBindings
   }
-
-  transports[params.type] = this
-  return transports
 }
-module.exports = Mishmash
+module.exports = Mishmesh

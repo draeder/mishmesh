@@ -1,5 +1,5 @@
 // API testing
-const Mishmash = require('../index')
+const Mishmash = require('../index.js.bak')
 const Bugout = require('bugout')
 const wrtc = require('wrtc')
 
@@ -12,12 +12,16 @@ b.on('seen', address => {
     send: b.send.bind(b),
     destroy: b.destroy.bind(b)
   }})
-  b.send('hiiiiiiiiii!')
-
+  let last
   for(let transport in mishmash){
     mishmash[transport].on('message', (address, message) => {
+      if(last === message) return
       console.log(message)
     })
   }
+  process.stdout.on('data', data => {
+    b.send(data.toString().trim())
+    last = data.toString().trim()
+  })
 
 })

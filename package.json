@@ -22,7 +22,7 @@
   "homepage": "https://github.com/draeder/mishmesh#readme",
   "dependencies": {
     "bugout": "^0.0.12",
-    "node-pre-gyp": "^0.17.0",
+    "gun": "^0.2020.1236",
     "wrtc": "^0.4.7"
   }
 }
