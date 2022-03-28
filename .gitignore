@@ -105,3 +105,4 @@ dist
 *.bak
 radata/!
 radata/%1C
+.DS_Store
