@@ -1,14 +1,12 @@
 
-const Bugout = require('bugout')
 const crypto = require('crypto')
-const GUN = require('gun')
-const SEA = require('gun/sea')
 const Mishmesh = require('../index.js')
 let mishmesh = new Mishmesh()
 
 let topic = 'my cool identifier'
 let secret = crypto.createHash('sha256').update(topic).digest('hex')
 let mesh = {}
+let last
 
 // Bugout
 const bugout = function(){
@@ -32,12 +30,19 @@ mesh['bugout'] = mishmesh.adapter({type: 'bugout', transportBindings: bugout().t
 mesh['bugout'].on('seen', address => {
   console.log(address)
 })
-mesh['bugout'].on('message', (address,message) => {
-  console.log(message)
+mesh['bugout'].on('message', (address, message) => {
+  //console.log(message)
+  let user = mesh['gun'].user()
+  user.auth(topic, secret)
+  user.get(topic).put(message)
+  last = message
 })
 
 // Gun
 const gun = function(){
+  const GUN = require('gun')
+  const SEA = require('gun/sea')
+
   //let pair = await SEA.pair()
   let Gun = new GUN()
 
@@ -59,11 +64,11 @@ user.create(topic, secret, ack => {
   user.auth(topic, secret)
 })
 mesh['gun'].on('auth', ack => {
-  console.log('Authenticated!')
-  let last
   user.get(topic).on(data => {
     if(last === data) return
-    console.log(data)
+    //console.log(data)
+    mesh['bugout'].send(data)
+    last = data
   })
   process.stdout.on('data', data => {
     last = data.toString().trim()
