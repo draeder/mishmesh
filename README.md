@@ -1,5 +1,5 @@
 # :warning: No longer maintained
-Please see https://github.com/draeder/decentralize
+Mishmesh has moved to https://github.com/draeder/decentralize
 
 # Mishmesh
 Transmit messages between peers regardless of underlying decentralization technology they are connected with
